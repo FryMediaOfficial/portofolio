@@ -74,6 +74,20 @@
     <footer>
         &copy; 2026 FryMediaOfficial. Dibuat dengan Tangan dan Pikiran.
     </footer>
+    <div id="myModal" style="display:none; position:fixed; z-index:1000; padding-top:100px; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.9); overflow:auto;">
+    <span onclick="document.getElementById('myModal').style.display='none'" style="position:absolute; top:15px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; cursor:pointer;">&times;</span>
+    <img id="img01" style="margin:auto; display:block; width:80%; max-width:700px; border-radius:10px; border: 2px solid #4facfe;">
+    <div id="caption" style="margin:auto; display:block; width:80%; max-width:700px; text-align:center; color:#ccc; padding:10px 0;"></div>
+</div>
+
+<script>
+function openModal(element) {
+    document.getElementById("myModal").style.display = "block";
+    document.getElementById("img01").src = element.src;
+    document.getElementById("caption").innerHTML = element.alt;
+}
+</script>
+    
 
 </body>
 </html>
