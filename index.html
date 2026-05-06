@@ -6,12 +6,23 @@
     <title>Portofolio Gambar | FryMedia</title>
     <style>
         body {
-            background-color: #121212;
+            background-color: #080808; /* Lebih gelap biar bintang kelihatan */
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             text-align: center;
+            overflow-x: hidden; /* Biar partikel gak bikin scroll samping */
+        }
+
+        /* 🌌 EFEK BACKGROUND PARTIKEL BINTANG 🌌 */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1; /* Di belakang konten */
         }
 
         /* HEADER DENGAN EFEK GLOWING */
@@ -20,10 +31,12 @@
             justify-content: flex-end; 
             align-items: center; 
             padding: 30px 5%; 
-            background: linear-gradient(145deg, #0a0a0a, #1a1a1a); 
+            background: linear-gradient(145deg, rgba(10,10,10,0.9), rgba(26,26,26,0.9)); 
             border-radius: 0 0 30px 30px;
             border-bottom: 2px solid #2a4d69;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            position: relative; /* Di atas partikel */
+            z-index: 10;
         }
 
         .glowing-title {
@@ -31,7 +44,6 @@
             font-weight: bold;
             letter-spacing: 3px;
             margin: 0;
-            /* Animasi Warna Gradasi */
             background: linear-gradient(90deg, #ff007a, #4facfe, #00f2fe, #ff007a);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -60,22 +72,24 @@
             max-width: 1100px;
             margin: 40px auto;
             padding: 20px;
+            position: relative;
+            z-index: 10; /* Di atas partikel */
         }
 
         .gallery-item {
-            background: #181818; 
+            background: rgba(24, 24, 24, 0.8); /* Agak transparan biar bintang kelihatan dikit */
             padding: 15px; 
             border-radius: 25px; 
             border: 1px solid #2a4d69; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             overflow: hidden;
+            backdrop-filter: blur(5px); /* Efek kaca buram */
         }
 
-        /* Efek Melayang Premium */
         .gallery-item:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.4);
+            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.5);
             border-color: #4facfe;
         }
 
@@ -90,7 +104,14 @@
             transform: scale(1.05);
         }
 
-        footer { margin: 50px 0; color: #555; font-size: 0.8rem; letter-spacing: 1px; }
+        footer { 
+            margin: 50px 0; 
+            color: #555; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px; 
+            position: relative;
+            z-index: 10;
+        }
 
         /* MODAL EFEK */
         #myModal {
@@ -101,11 +122,13 @@
             left:0; top:0; 
             width:100%; height:100%; 
             background-color: rgba(0,0,0,0.95); 
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px); /* Blur lebih kuat di modal */
         }
     </style>
 </head>
 <body>
+
+    <div id="particles-js"></div>
 
     <header>
         <div style="text-align: right;">
@@ -130,13 +153,13 @@
         </div>
 
         <div class="gallery-item">
-            <img src="belom_ada.png" alt="Nama Karakter" onclick="openModal(this)">
+            <img src="belom_ada.png" alt="Coming soon..." onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Karya Berikutnya</h3>
             <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Coming soon..."</p>
         </div>
 
         <div class="gallery-item">
-            <img src="belom_ada.png" alt="Nama Karakter" onclick="openModal(this)">
+            <img src="belom_ada.png" alt="Coming soon..." onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Karya Berikutnya</h3>
             <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Coming soon..."</p>
         </div>
@@ -152,13 +175,42 @@
         <div id="caption" style="margin:auto; display:block; width:80%; max-width:700px; text-align:center; color:#ccc; padding:20px 0; font-style: italic;"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
     <script>
+    /* Konfigurasi Bintang Fry Media */
+    particlesJS("particles-js", {
+        "particles": {
+            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "color": { "value": ["#ffffff", "#ff007a", "#4facfe"] }, /* Bintang warna-warni tipis */
+            "shape": { "type": "circle" },
+            "opacity": { "value": 0.5, "random": true },
+            "size": { "value": 3, "random": true },
+            "line_linked": { "enable": false }, /* Jangan pake garis biar gak ruwet */
+            "move": {
+                "enable": true,
+                "speed": 1, /* Pelan aja biar estetik */
+                "direction": "bottom", /* Jatuh kayak salju/bintang */
+                "random": true,
+                "straight": false,
+                "out_mode": "out"
+            }
+        },
+        "interactivity": {
+            "detect_on": "canvas",
+            "events": { "onhover": { "enable": true, "mode": "bubble" } }, /* Bintang membesar pas kursor lewat */
+            "modes": { "bubble": { "size": 6, "opacity": 0.8 } }
+        }
+    });
+
+    /* Script Modal Lama */
     function openModal(element) {
         document.getElementById("myModal").style.display = "block";
         document.getElementById("img01").src = element.src;
         document.getElementById("caption").innerHTML = element.alt;
     }
 
+    /* Script Like Lama */
     function likeKarya(btn) {
         let span = btn.nextElementSibling;
         if(!btn.disabled){
