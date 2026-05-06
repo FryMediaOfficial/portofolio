@@ -57,10 +57,10 @@
             min-height: 1.2em;
         }
 
-        /* FILOSOFI SECTION */
-        .welcome-box {
+        /* CONTAINER UTAMA */
+        .main-container {
             max-width: 850px;
-            margin: 40px auto 20px;
+            margin: 40px auto;
             padding: 30px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 25px;
@@ -70,11 +70,12 @@
             backdrop-filter: blur(5px);
         }
 
+        /* FILOSOFI GRID */
         .philosophy-grid {
             display: flex;
             justify-content: space-around;
             gap: 15px;
-            margin-top: 20px;
+            margin: 25px 0;
             flex-wrap: wrap;
         }
 
@@ -82,17 +83,23 @@
             flex: 1;
             min-width: 200px;
             padding: 15px;
-            background: rgba(79, 172, 254, 0.1);
+            background: rgba(79, 172, 254, 0.05);
             border-radius: 15px;
-            border: 1px solid rgba(79, 172, 254, 0.3);
+            border: 1px solid rgba(79, 172, 254, 0.2);
+            transition: 0.3s;
+        }
+        
+        .philo-item:hover {
+            background: rgba(79, 172, 254, 0.1);
+            border-color: #4facfe;
         }
 
-        .philo-item strong { color: #4facfe; display: block; margin-bottom: 5px; }
+        .philo-item strong { color: #4facfe; display: block; margin-bottom: 5px; letter-spacing: 1px; }
 
-        /* DISCORD BUTTON */
+        /* BUTTONS */
         .discord-btn {
             display: inline-block;
-            margin-top: 25px;
+            margin-top: 20px;
             padding: 12px 30px;
             background: #5865F2;
             color: white;
@@ -100,21 +107,27 @@
             border-radius: 50px;
             font-weight: bold;
             transition: 0.3s;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
         }
 
-        .discord-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 25px #5865F2;
+        .discord-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #5865F2; }
+
+        /* GALERI SECTION */
+        .gallery-title {
+            margin: 60px 0 20px;
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            color: #ebf5ff;
+            position: relative;
+            z-index: 10;
         }
 
-        /* GALLERY */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             max-width: 1100px;
-            margin: 40px auto;
+            margin: 0 auto 60px;
             padding: 20px;
             position: relative;
             z-index: 10;
@@ -125,20 +138,13 @@
             padding: 15px; 
             border-radius: 25px; 
             border: 1px solid #2a4d69; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.4s;
             backdrop-filter: blur(5px);
         }
 
-        .gallery-item:hover {
-            transform: translateY(-15px);
-            border-color: #4facfe;
-        }
+        .gallery-item:hover { transform: translateY(-10px); border-color: #4facfe; }
 
-        .gallery-item img {
-            width: 100%;
-            border-radius: 15px;
-            cursor: pointer;
-        }
+        .gallery-item img { width: 100%; border-radius: 15px; cursor: pointer; }
 
         footer { margin: 50px 0; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
 
@@ -161,44 +167,51 @@
         </div>
     </header>
 
-    <div class="welcome-box">
-        <h2 style="color: #4facfe;">VIRTUAL BASE 🗿✨</h2>
-        <p>Yo! Kamu masuk ke markas <strong>Fantastic Render Yard</strong>. Tempat di mana ide liar diolah menjadi mahakarya visual.</p>
+    <div class="main-container">
+        <h2 style="color: #4facfe; letter-spacing: 2px;">VIRTUAL BASE 🗿✨</h2>
+        <p style="color: #ccc; line-height: 1.7;">
+            Yo! Kamu sudah masuk ke dimensi visual <strong>Fry Media Official</strong>.<br> 
+            Ini bukan cuma sekadar galeri, tapi tempat semua ide liar saya dikunci jadi karya digital. 🚀
+        </p>
         
+        <div style="margin: 25px auto; border-top: 1px solid rgba(42, 77, 105, 0.5); width: 60%;"></div>
+
         <div class="philosophy-grid">
             <div class="philo-item">
                 <strong>FANTASTIC</strong>
-                <span style="font-size: 0.85rem; color: #ccc;">Kualitas memukau yang bakal bikin siapa pun terpana melihatnya.</span>
+                <span style="font-size: 0.85rem; color: #aaa;">Kualitas memukau yang bakal bikin siapa pun terpana.</span>
             </div>
             <div class="philo-item">
                 <strong>RENDER</strong>
-                <span style="font-size: 0.85rem; color: #ccc;">Inti kami: Mengubah objek 3D di Prisma3D & Blender jadi animasi final.</span>
+                <span style="font-size: 0.85rem; color: #aaa;">Proses mengubah objek 3D menjadi animasi final yang hidup.</span>
             </div>
             <div class="philo-item">
                 <strong>YARD</strong>
-                <span style="font-size: 0.85rem; color: #ccc;">Wadah berkumpulnya ide kreatif sebelum dieksekusi jadi karya.</span>
+                <span style="font-size: 0.85rem; color: #aaa;">Markas berkumpulnya ide kreatif untuk diolah jadi karya.</span>
             </div>
         </div>
 
-        <p style="margin-top: 25px;">Mau liat proses di balik layar atau tanya-tanya soal render? Gabung ke komunitas kita!</p>
+        <p style="margin-top: 25px; font-size: 0.95rem;">Mau liat proses di balik layar? Gabung ke komunitas!</p>
         <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="discord-btn">🎮 JOIN OUR DISCORD</a>
     </div>
 
+    <h2 class="gallery-title">PORTFOLIO KARYA 🗿🎨</h2>
+    
     <div class="gallery">
         <div class="gallery-item">
             <img src="1000233971.jpg" alt="Knight" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Knight Project</h3>
-            <p style="font-size: 0.8rem; color: #888;">"Fantastic Render from Prisma3D"</p>
+            <p style="font-size: 0.8rem; color: #888;">"Render from Prisma3D"</p>
         </div>
         <div class="gallery-item">
             <img src="1000233970.jpg" alt="Art" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Cyber Art</h3>
-            <p style="font-size: 0.8rem; color: #888;">"Rendering ideas into reality"</p>
+            <p style="font-size: 0.8rem; color: #888;">"Digital Neon Concept"</p>
         </div>
         <div class="gallery-item">
             <img src="1000233972.jpg" alt="Visual" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Future Yard</h3>
-            <p style="font-size: 0.8rem; color: #888;">"Where creativity grows"</p>
+            <p style="font-size: 0.8rem; color: #888;">"Visual Exploration"</p>
         </div>
     </div>
 
