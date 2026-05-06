@@ -15,6 +15,7 @@
             overflow-x: hidden;
         }
 
+        /* AREA BACKGROUND */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -24,6 +25,7 @@
             z-index: -1;
         }
 
+        /* BAGIAN ATAS */
         header { 
             display: flex; 
             justify-content: flex-end; 
@@ -55,7 +57,6 @@
             to { background-position: 200% center; }
         }
 
-        /* EFEK KETIK */
         #typing-text {
             color: #a0a0a0; 
             font-style: italic; 
@@ -65,12 +66,38 @@
             min-height: 1.2em;
         }
 
+        /* AREA SAMBUTAN */
+        .welcome-box {
+            max-width: 800px;
+            margin: 40px auto 20px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 25px;
+            border: 1px dashed #4facfe;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        .welcome-box h2 {
+            color: #4facfe;
+            margin-top: 0;
+            letter-spacing: 2px;
+        }
+
+        .welcome-box p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* AREA GALERI */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             max-width: 1100px;
-            margin: 40px auto;
+            margin: 20px auto 40px;
             padding: 20px;
             position: relative;
             z-index: 10;
@@ -98,10 +125,6 @@
             border-radius: 15px;
             cursor: pointer;
             transition: transform 0.5s ease;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
         }
 
         footer { 
@@ -136,46 +159,57 @@
         </div>
     </header>
 
+    <div class="welcome-box">
+        <h2>VIRTUAL BASE 🗿✨</h2>
+        <p>
+            Yo! Kamu sudah masuk ke dimensi visual <strong>Fry Media Official</strong>. 
+            Di sini bukan cuma sekadar galeri, tapi tempat semua ide liar saya dikunci jadi karya digital. 🚀
+        </p>
+        <div style="margin: 20px 0; border-top: 1px solid #2a4d69; width: 50%; margin-left: auto; margin-right: auto;"></div>
+        <p style="font-size: 0.9rem; color: #ccc; line-height: 1.8;">
+            Dari desain karakter sampai animasi, semuanya ada di bawah sebagai portofolio resmi studio kami. 
+            Silakan eksplorasi setiap detailnya! 🗿🎨
+        </p>
+    </div>
+
     <div class="gallery">
         <div class="gallery-item">
-            <img src="IMG_20260505_211132.png" alt="Knight" onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Knight</h3>
+            <img src="1000233971.jpg" alt="Knight Project" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Cyber Knight</h3>
             <p style="margin: 0 0 15px 0; font-style: italic; color: #888; font-size: 0.9rem;">"My sword is my shield, my duty is my curse."</p>
             <div style="padding: 10px 0 0 0; display: flex; align-items: center; gap: 10px; justify-content: center;">
                 <button onclick="likeKarya(this)" style="background: none; border: 1px solid #4facfe; color: #4facfe; padding: 6px 18px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s;">
                     🤍 Like
                 </button>
                 <span style="color: #888; font-size: 0.8rem;">24</span> 
-                <span style="color: #888; font-size: 0.8rem;">Likes</span>
             </div>
         </div>
 
         <div class="gallery-item">
-            <img src="belom_ada.png" alt="Coming soon..." onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Karya Berikutnya</h3>
-            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Coming soon..."</p>
+            <img src="1000233970.jpg" alt="Digital Art" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Neon Concept</h3>
+            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Shaping the digital future."</p>
         </div>
 
         <div class="gallery-item">
-            <img src="belom_ada.png" alt="Coming soon..." onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Karya Berikutnya</h3>
-            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Coming soon..."</p>
+            <img src="1000233972.jpg" alt="Illustration" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Visual Project</h3>
+            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Beyond the stars."</p>
         </div>
     </div>
 
     <footer>
-        &copy; 2026 FryMediaOfficial. Dibuat dengan Tangan dan Pikiran.
+        &copy; 2026 FryMediaOfficial.
     </footer>
 
     <div id="myModal">
         <span onclick="document.getElementById('myModal').style.display='none'" style="position:absolute; top:20px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; cursor:pointer;">&times;</span>
-        <img id="img01" style="margin:auto; display:block; width:85%; max-width:750px; border-radius:15px; border: 2px solid #4facfe; box-shadow: 0 0 30px rgba(79, 172, 254, 0.5);">
-        <div id="caption" style="margin:auto; display:block; width:80%; max-width:700px; text-align:center; color:#ccc; padding:20px 0; font-style: italic;"></div>
+        <img id="img01" style="margin:auto; display:block; width:85%; max-width:750px; border-radius:15px; border: 2px solid #4facfe;">
+        <div id="caption" style="margin:auto; display:block; width:80%; text-align:center; color:#ccc; padding:20px 0;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-    /* Bintang Fry Media */
     particlesJS("particles-js", {
         "particles": {
             "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
@@ -185,25 +219,19 @@
             "size": { "value": 3, "random": true },
             "line_linked": { "enable": false },
             "move": { "enable": true, "speed": 1, "direction": "bottom", "random": true, "straight": false, "out_mode": "out" }
-        },
-        "interactivity": {
-            "detect_on": "canvas",
-            "events": { "onhover": { "enable": true, "mode": "bubble" } },
-            "modes": { "bubble": { "size": 6, "opacity": 0.8 } }
         }
     });
 
-    /* EFEK KETIK OTOMATIS */
     const text = '"Koleksi Karya Digital & Portofolio Terbaik"';
     let index = 0;
     function typeEffect() {
         if (index < text.length) {
             document.getElementById("typing-text").innerHTML += text.charAt(index);
             index++;
-            setTimeout(typeEffect, 100); /* Kecepatan ngetik (100ms) */
+            setTimeout(typeEffect, 100);
         }
     }
-    window.onload = typeEffect; /* Jalanin pas web dibuka */
+    window.onload = typeEffect;
 
     function openModal(element) {
         document.getElementById("myModal").style.display = "block";
@@ -217,7 +245,6 @@
             span.innerText = parseInt(span.innerText) + 1;
             btn.innerHTML='❤️ Liked!';
             btn.disabled=true;
-            btn.style.opacity='0.7';
             btn.style.borderColor = '#ff007a';
             btn.style.color = '#ff007a';
         }
