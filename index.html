@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Gambar | FryMedia</title>
+    <title>Portofolio | FryMediaOfficial</title>
     <style>
         body {
             background-color: #080808;
@@ -15,7 +15,6 @@
             overflow-x: hidden;
         }
 
-        /* AREA BACKGROUND */
         #particles-js {
             position: fixed;
             width: 100%;
@@ -25,16 +24,13 @@
             z-index: -1;
         }
 
-        /* BAGIAN ATAS */
         header { 
             display: flex; 
             justify-content: flex-end; 
             align-items: center; 
             padding: 30px 5%; 
             background: rgba(10, 10, 10, 0.85); 
-            border-radius: 0 0 30px 30px;
             border-bottom: 2px solid #2a4d69;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             position: relative;
             z-index: 10;
             backdrop-filter: blur(10px);
@@ -50,25 +46,20 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shine 3s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(79, 172, 254, 0.4));
         }
 
-        @keyframes shine {
-            to { background-position: 200% center; }
-        }
+        @keyframes shine { to { background-position: 200% center; } }
 
         #typing-text {
             color: #a0a0a0; 
             font-style: italic; 
-            margin: 5px 0 0 0;
             font-size: 0.9rem;
-            letter-spacing: 1px;
             min-height: 1.2em;
         }
 
-        /* AREA SAMBUTAN */
+        /* FILOSOFI SECTION */
         .welcome-box {
-            max-width: 800px;
+            max-width: 850px;
             margin: 40px auto 20px;
             padding: 30px;
             background: rgba(255, 255, 255, 0.03);
@@ -79,25 +70,51 @@
             backdrop-filter: blur(5px);
         }
 
-        .welcome-box h2 {
-            color: #4facfe;
-            margin-top: 0;
-            letter-spacing: 2px;
+        .philosophy-grid {
+            display: flex;
+            justify-content: space-around;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
         }
 
-        .welcome-box p {
-            color: #ccc;
-            line-height: 1.6;
-            font-size: 1rem;
+        .philo-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: rgba(79, 172, 254, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(79, 172, 254, 0.3);
         }
 
-        /* AREA GALERI */
+        .philo-item strong { color: #4facfe; display: block; margin-bottom: 5px; }
+
+        /* DISCORD BUTTON */
+        .discord-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: #5865F2;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+        }
+
+        .discord-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #5865F2;
+        }
+
+        /* GALLERY */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             max-width: 1100px;
-            margin: 20px auto 40px;
+            margin: 40px auto;
             padding: 20px;
             position: relative;
             z-index: 10;
@@ -108,15 +125,12 @@
             padding: 15px; 
             border-radius: 25px; 
             border: 1px solid #2a4d69; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5); 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             backdrop-filter: blur(5px);
         }
 
         .gallery-item:hover {
             transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(79, 172, 254, 0.5);
             border-color: #4facfe;
         }
 
@@ -124,26 +138,14 @@
             width: 100%;
             border-radius: 15px;
             cursor: pointer;
-            transition: transform 0.5s ease;
         }
 
-        footer { 
-            margin: 50px 0; 
-            color: #555; 
-            font-size: 0.8rem; 
-            position: relative;
-            z-index: 10;
-        }
+        footer { margin: 50px 0; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
 
         #myModal {
-            display:none; 
-            position:fixed; 
-            z-index:1000; 
-            padding-top:80px; 
-            left:0; top:0; 
-            width:100%; height:100%; 
-            background-color: rgba(0,0,0,0.95); 
-            backdrop-filter: blur(8px);
+            display:none; position:fixed; z-index:1000; padding-top:80px; 
+            left:0; top:0; width:100%; height:100%; 
+            background-color: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
         }
     </style>
 </head>
@@ -153,76 +155,72 @@
 
     <header>
         <div style="text-align: right;">
-            <img src="IMG_20260406_161427.png" alt="Logo Fry Media" style="width: 85px; height: auto; filter: drop-shadow(0 0 8px #4facfe); margin-bottom: 5px;">
+            <img src="IMG_20260406_161427.png" alt="Logo" style="width: 85px; height: auto; filter: drop-shadow(0 0 8px #4facfe);">
             <h1 class="glowing-title">FRY MEDIA OFFICIAL</h1>
             <p id="typing-text"></p> 
         </div>
     </header>
 
     <div class="welcome-box">
-        <h2>VIRTUAL BASE 🗿✨</h2>
-        <p>
-            Yo! Kamu sudah masuk ke dimensi visual <strong>Fry Media Official</strong>. 
-            Di sini bukan cuma sekadar galeri, tapi tempat semua ide liar saya dikunci jadi karya digital. 🚀
-        </p>
-        <div style="margin: 20px 0; border-top: 1px solid #2a4d69; width: 50%; margin-left: auto; margin-right: auto;"></div>
-        <p style="font-size: 0.9rem; color: #ccc; line-height: 1.8;">
-            Dari desain karakter sampai animasi, semuanya ada di bawah sebagai portofolio resmi studio kami. 
-            Silakan eksplorasi setiap detailnya! 🗿🎨
-        </p>
+        <h2 style="color: #4facfe;">VIRTUAL BASE 🗿✨</h2>
+        <p>Yo! Kamu masuk ke markas <strong>Fantastic Render Yard</strong>. Tempat di mana ide liar diolah menjadi mahakarya visual.</p>
+        
+        <div class="philosophy-grid">
+            <div class="philo-item">
+                <strong>FANTASTIC</strong>
+                <span style="font-size: 0.85rem; color: #ccc;">Kualitas memukau yang bakal bikin siapa pun terpana melihatnya.</span>
+            </div>
+            <div class="philo-item">
+                <strong>RENDER</strong>
+                <span style="font-size: 0.85rem; color: #ccc;">Inti kami: Mengubah objek 3D di Prisma3D & Blender jadi animasi final.</span>
+            </div>
+            <div class="philo-item">
+                <strong>YARD</strong>
+                <span style="font-size: 0.85rem; color: #ccc;">Wadah berkumpulnya ide kreatif sebelum dieksekusi jadi karya.</span>
+            </div>
+        </div>
+
+        <p style="margin-top: 25px;">Mau liat proses di balik layar atau tanya-tanya soal render? Gabung ke komunitas kita!</p>
+        <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="discord-btn">🎮 JOIN OUR DISCORD</a>
     </div>
 
     <div class="gallery">
         <div class="gallery-item">
-            <img src="IMG_20260505_211132.png" alt="Knight Project" onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">only knights</h3>
-            <p style="margin: 0 0 15px 0; font-style: italic; color: #888; font-size: 0.9rem;">"My sword is my shield, my duty is my curse."</p>
-            <div style="padding: 10px 0 0 0; display: flex; align-items: center; gap: 10px; justify-content: center;">
-                <button onclick="likeKarya(this)" style="background: none; border: 1px solid #4facfe; color: #4facfe; padding: 6px 18px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; transition: 0.3s;">
-                    🤍 Like
-                </button>
-                <span style="color: #888; font-size: 0.8rem;">24</span> 
-            </div>
+            <img src="1000233971.jpg" alt="Knight" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Knight Project</h3>
+            <p style="font-size: 0.8rem; color: #888;">"Fantastic Render from Prisma3D"</p>
         </div>
-
         <div class="gallery-item">
-            <img src="1000233970.jpg" alt="Digital Art" onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Neon Concept</h3>
-            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Shaping the digital future."</p>
+            <img src="1000233970.jpg" alt="Art" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Cyber Art</h3>
+            <p style="font-size: 0.8rem; color: #888;">"Rendering ideas into reality"</p>
         </div>
-
         <div class="gallery-item">
-            <img src="1000233972.jpg" alt="Illustration" onclick="openModal(this)">
-            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff; font-size: 1.2rem;">Visual Project</h3>
-            <p style="margin: 0; font-style: italic; color: #888; font-size: 0.9rem;">"Beyond the stars."</p>
+            <img src="1000233972.jpg" alt="Visual" onclick="openModal(this)">
+            <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Future Yard</h3>
+            <p style="font-size: 0.8rem; color: #888;">"Where creativity grows"</p>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 FryMediaOfficial.
-    </footer>
+    <footer>&copy; 2026 FryMediaOfficial. Powered by Fantastic Render Yard.</footer>
 
     <div id="myModal">
-        <span onclick="document.getElementById('myModal').style.display='none'" style="position:absolute; top:20px; right:35px; color:#f1f1f1; font-size:40px; font-weight:bold; cursor:pointer;">&times;</span>
+        <span onclick="document.getElementById('myModal').style.display='none'" style="position:absolute; top:20px; right:35px; color:#f1f1f1; font-size:40px; cursor:pointer;">&times;</span>
         <img id="img01" style="margin:auto; display:block; width:85%; max-width:750px; border-radius:15px; border: 2px solid #4facfe;">
-        <div id="caption" style="margin:auto; display:block; width:80%; text-align:center; color:#ccc; padding:20px 0;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
     particlesJS("particles-js", {
         "particles": {
-            "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+            "number": { "value": 80 },
             "color": { "value": ["#ffffff", "#ff007a", "#4facfe"] },
-            "shape": { "type": "circle" },
-            "opacity": { "value": 0.5, "random": true },
             "size": { "value": 3, "random": true },
-            "line_linked": { "enable": false },
-            "move": { "enable": true, "speed": 1, "direction": "bottom", "random": true, "straight": false, "out_mode": "out" }
+            "move": { "enable": true, "speed": 1, "direction": "bottom" }
         }
     });
 
-    const text = '"Koleksi Karya Digital & Portofolio Terbaik"';
+    const text = '"Fantastic Render Yard - Markas Kreativitas"';
     let index = 0;
     function typeEffect() {
         if (index < text.length) {
@@ -236,18 +234,6 @@
     function openModal(element) {
         document.getElementById("myModal").style.display = "block";
         document.getElementById("img01").src = element.src;
-        document.getElementById("caption").innerHTML = element.alt;
-    }
-
-    function likeKarya(btn) {
-        let span = btn.nextElementSibling;
-        if(!btn.disabled){
-            span.innerText = parseInt(span.innerText) + 1;
-            btn.innerHTML='❤️ Liked!';
-            btn.disabled=true;
-            btn.style.borderColor = '#ff007a';
-            btn.style.color = '#ff007a';
-        }
     }
     </script>
 </body>
