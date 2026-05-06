@@ -38,6 +38,14 @@
             border: 2px solid #ff007a;
         }
         footer { margin-top: 50px; color: #555; font-size: 0.8rem; }
+.gallery-item {
+    transition: all 0.3s ease-in-out;
+}
+
+.gallery-item:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 35px rgba(79, 172, 254, 0.5);
+}
     </style>
 </head>
 <body>
@@ -49,8 +57,8 @@
         <p style="color: #a0a0a0; font-style: italic;">"Koleksi Karya Digital & Portofolio Terbaik"</p>
     </header>
 
-    <div class="gallery">
-    <div style="background: #121212; padding: 15px; border-radius: 20px; margin-bottom: 40px; border: 1px solid #2a4d69; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+    <div class="gallery-item">
+    <div style="background: #121212; padding: 15px; border-radius: 20px; margin-bottom: 40px; border: 1px solid #2a4d69; box-shadow: 0 4px 15px rgba(0,0,0,0.5); overflow: hidden;">
     
     <img src="IMG_20260505_211132.png" alt="Knight" onclick="openModal(this)" style="width:100%; border-radius: 12px; cursor:pointer;">
     
