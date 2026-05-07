@@ -368,7 +368,7 @@
         }
     });
 
-    // --- SCRIPT CUSTOM CURSOR (ULTRA RESPONSIVE) ---
+    // --- SCRIPT CUSTOM CURSOR (FIX AUTO-SYNC) ---
     const dot = document.getElementById("cursor-dot");
     const outline = document.getElementById("cursor-outline");
 
@@ -387,15 +387,17 @@
         dot.style.top = mouseY + "px";
     }
 
+    // Pakai mouseover/mouseenter biar kursor neon langsung nyambar begitu mouse masuk web
     window.addEventListener("mousemove", moveCursor, { passive: true });
+    window.addEventListener("mouseover", moveCursor, { passive: true });
     window.addEventListener("touchstart", moveCursor, { passive: true });
     window.addEventListener("touchmove", moveCursor, { passive: true });
 
     function animate() {
         let distX = mouseX - outlineX;
         let distY = mouseY - outlineY;
-        outlineX += distX * 0.15;
-        outlineY += distY * 0.15;
+        outlineX += distX * 0.2; 
+        outlineY += distY * 0.2;
         outline.style.left = outlineX + "px";
         outline.style.top = outlineY + "px";
         requestAnimationFrame(animate);
