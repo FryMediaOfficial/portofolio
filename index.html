@@ -36,6 +36,14 @@
             backdrop-filter: blur(10px);
         }
 
+        /* --- FITUR LIVE CLOCK STYLE --- */
+        .live-info {
+            position: absolute; left: 5%; top: 50%; transform: translateY(-50%);
+            text-align: left; font-family: 'Courier New', Courier, monospace;
+        }
+        #clock { font-size: 1.2rem; color: #4facfe; font-weight: bold; margin: 0; }
+        #status-text { font-size: 0.7rem; color: #ff007a; text-transform: uppercase; letter-spacing: 1px; }
+
         .glowing-title {
             font-size: 2.2rem;
             font-weight: bold;
@@ -116,6 +124,7 @@
             display: flex; align-items: center; justify-content: center;
             color: white; text-decoration: none; font-size: 22px;
             box-shadow: 0 0 15px rgba(79, 172, 254, 0.5); transition: 0.3s;
+            border: none; cursor: pointer; /* added for button */
         }
         .float-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px #4facfe; }
 
@@ -182,12 +191,21 @@
 
     <div id="particles-js"></div>
 
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="floating-contact">
+        <button onclick="toggleMusic()" class="float-btn" style="background: #ff007a;" id="music-btn" title="Play Music">🎵</button>
         <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="float-btn" title="Discord">🎮</a>
         <a href="https://www.instagram.com/frymediaofficial01?igsh=bmdyZGJwcmg4aThu" target="_blank" class="float-btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);" title="Instagram">📸</a>
     </div>
 
     <header>
+        <div class="live-info">
+            <p id="clock">00:00:00</p>
+            <p id="status-text">● RENDERING IDEAS</p>
+        </div>
         <div style="text-align: right;">
             <img src="IMG_20260406_161427.png" alt="Logo" style="width: 85px; height: auto; filter: drop-shadow(0 0 8px #4facfe);">
             <h1 class="glowing-title">FRY MEDIA OFFICIAL</h1>
@@ -276,6 +294,25 @@
         }
     });
 
+    // --- SCRIPT CLOCK ---
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
+    }
+    setInterval(updateClock, 1000);
+
+    // --- SCRIPT MUSIC ---
+    const music = document.getElementById('bg-music');
+    function toggleMusic() {
+        if (music.paused) {
+            music.play();
+            document.getElementById('music-btn').innerText = "⏸️";
+        } else {
+            music.pause();
+            document.getElementById('music-btn').innerText = "🎵";
+        }
+    }
+
     const text = '"Fantastic Render Yard - Markas Kreativitas"';
     let index = 0;
     function typeEffect() {
@@ -288,6 +325,7 @@
     
     window.onload = function() {
         typeEffect();
+        updateClock();
         setTimeout(() => {
             document.getElementById('skill1').style.width = '85%';
             document.getElementById('skill2').style.width = '95%';
@@ -302,4 +340,3 @@
     </script>
 </body>
 </html>
-
