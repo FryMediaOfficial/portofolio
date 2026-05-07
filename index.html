@@ -16,6 +16,29 @@
             scroll-behavior: smooth;
         }
 
+        /* --- CUSTOM CYBER CURSOR CSS --- */
+        * { cursor: none !important; } /* Sembunyikan kursor asli */
+
+        #cursor-dot {
+            width: 8px; height: 8px; background: #ff007a;
+            position: fixed; border-radius: 50%; pointer-events: none;
+            z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+        }
+
+        #cursor-outline {
+            width: 30px; height: 30px; border: 2px solid #4facfe;
+            position: fixed; border-radius: 50%; pointer-events: none;
+            z-index: 9998; transform: translate(-50%, -50%);
+            transition: all 0.15s ease-out;
+        }
+
+        .cursor-hover {
+            width: 60px !important; height: 60px !important;
+            background: rgba(79, 172, 254, 0.2) !important;
+            border-color: #ff007a !important;
+        }
+
         #particles-js {
             position: fixed;
             width: 100%;
@@ -226,6 +249,9 @@
 </head>
 <body>
 
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
     <div id="particles-js"></div>
 
     <audio id="bg-music" loop>
@@ -343,6 +369,19 @@
         }
     });
 
+    // --- SCRIPT CUSTOM CURSOR ---
+    const dot = document.getElementById("cursor-dot");
+    const outline = document.getElementById("cursor-outline");
+
+    window.addEventListener("mousemove", (e) => {
+        dot.style.left = e.clientX + "px";
+        dot.style.top = e.clientY + "px";
+        setTimeout(() => {
+            outline.style.left = e.clientX + "px";
+            outline.style.top = e.clientY + "px";
+        }, 50);
+    });
+
     function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
@@ -408,6 +447,13 @@
             document.getElementById('skill2').style.width = '95%';
             document.getElementById('skill3').style.width = '70%';
         }, 500);
+
+        // Pasang efek hover kursor ke elemen interaktif
+        const interactiveElements = document.querySelectorAll('button, a, .gallery-item img, .like-container');
+        interactiveElements.forEach(el => {
+            el.addEventListener("mouseenter", () => outline.classList.add("cursor-hover"));
+            el.addEventListener("mouseleave", () => outline.classList.remove("cursor-hover"));
+        });
     };
 
     function openModal(element) {
