@@ -13,7 +13,7 @@
             padding: 0;
             text-align: center;
             overflow-x: hidden;
-            scroll-behavior: smooth; /* Tambahan agar scroll ke atas mulus */
+            scroll-behavior: smooth;
         }
 
         #particles-js {
@@ -37,7 +37,6 @@
             backdrop-filter: blur(10px);
         }
 
-        /* --- FITUR LIVE CLOCK STYLE --- */
         .live-info {
             position: absolute; left: 5%; top: 50%; transform: translateY(-50%);
             text-align: left; font-family: 'Courier New', Courier, monospace;
@@ -66,7 +65,6 @@
             min-height: 1.2em;
         }
 
-        /* CONTAINER UTAMA */
         .main-container {
             max-width: 850px;
             margin: 40px auto;
@@ -79,7 +77,6 @@
             backdrop-filter: blur(5px);
         }
 
-        /* FILOSOFI GRID */
         .philosophy-grid {
             display: flex;
             justify-content: space-around;
@@ -105,7 +102,6 @@
 
         .philo-item strong { color: #4facfe; display: block; margin-bottom: 5px; letter-spacing: 1px; }
 
-        /* SKILL BARS STYLE */
         .skill-section { margin: 30px 0; text-align: left; padding: 0 10px; }
         .skill-container { margin-bottom: 15px; }
         .skill-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem; color: #4facfe; }
@@ -115,7 +111,6 @@
             border-radius: 10px; width: 0; transition: width 2s ease-in-out; 
         }
 
-        /* FLOATING CONTACT (UPDATED) */
         .floating-contact {
             position: fixed; bottom: 20px; right: 20px; z-index: 100;
             display: flex; flex-direction: column; gap: 12px;
@@ -125,11 +120,10 @@
             display: flex; align-items: center; justify-content: center;
             color: white; text-decoration: none; font-size: 22px;
             box-shadow: 0 0 15px rgba(79, 172, 254, 0.5); transition: 0.3s;
-            border: none; cursor: pointer; /* added for button */
+            border: none; cursor: pointer;
         }
         .float-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px #4facfe; }
 
-        /* BUTTONS */
         .discord-btn {
             display: inline-block;
             margin-top: 20px;
@@ -143,9 +137,6 @@
             box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
         }
 
-        .discord-btn:hover { transform: scale(1.05); box-shadow: 0 0 25px #5865F2; }
-
-        /* GALERI SECTION */
         .gallery-title {
             margin: 60px 0 20px;
             font-size: 1.8rem;
@@ -176,8 +167,22 @@
         }
 
         .gallery-item:hover { transform: translateY(-10px); border-color: #4facfe; }
-
         .gallery-item img { width: 100%; border-radius: 15px; cursor: pointer; }
+
+        /* --- STYLE LIKE FAKE --- */
+        .like-container {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+            padding: 5px;
+        }
+        .like-btn { font-size: 1.2rem; transition: transform 0.2s ease; }
+        .like-container:active .like-btn { transform: scale(1.4); }
+        .like-count { font-weight: bold; color: #ff007a; font-family: 'Courier New', Courier, monospace; }
 
         footer { margin: 50px 0; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
 
@@ -263,17 +268,29 @@
         <div class="gallery-item">
             <img src="IMG_20260505_211132.png" alt="Knight" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Art Project</h3>
-            <p style="font-size: 0.8rem; color: #888;">""My sword is my Shield, my duty is my curse.""</p>
+            <p style="font-size: 0.8rem; color: #888;">"My sword is my Shield, my duty is my curse."</p>
+            <div class="like-container" onclick="addLike(this)">
+                <span class="like-btn">❤️</span>
+                <span class="like-count">1204</span>
+            </div>
         </div>
         <div class="gallery-item">
             <img src="1000233970.jpg" alt="Art" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Cyber Art</h3>
             <p style="font-size: 0.8rem; color: #888;">"Digital Neon Concept"</p>
+            <div class="like-container" onclick="addLike(this)">
+                <span class="like-btn">❤️</span>
+                <span class="like-count">856</span>
+            </div>
         </div>
         <div class="gallery-item">
             <img src="1000233972.jpg" alt="Visual" onclick="openModal(this)">
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Future Yard</h3>
             <p style="font-size: 0.8rem; color: #888;">"Visual Exploration"</p>
+            <div class="like-container" onclick="addLike(this)">
+                <span class="like-btn">❤️</span>
+                <span class="like-count">932</span>
+            </div>
         </div>
     </div>
 
@@ -295,34 +312,30 @@
         }
     });
 
-    // --- SCRIPT CLOCK ---
     function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString('id-ID');
     }
     setInterval(updateClock, 1000);
 
-    // --- SCRIPT SMART FLOATING BUTTON (MUSIC & TOP) ---
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     let isAtTop = true;
 
     window.onscroll = function() {
-        // Jika scroll lebih dari 300px, ubah jadi tombol TOP
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             isAtTop = false;
             musicBtn.innerText = "🔝";
-            musicBtn.style.background = "#4facfe"; // Berubah jadi biru biar beda
+            musicBtn.style.background = "#4facfe";
         } else {
             isAtTop = true;
-            musicBtn.style.background = "#ff007a"; // Kembali jadi pink
+            musicBtn.style.background = "#ff007a";
             musicBtn.innerText = music.paused ? "🎵" : "⏸️";
         }
     };
 
     function handleFloatingClick() {
         if (isAtTop) {
-            // Logika Musik
             if (music.paused) {
                 music.play();
                 musicBtn.innerText = "⏸️";
@@ -331,9 +344,16 @@
                 musicBtn.innerText = "🎵";
             }
         } else {
-            // Logika Back to Top
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+    }
+
+    // --- SCRIPT LIKE FAKE ---
+    function addLike(element) {
+        let countElement = element.querySelector('.like-count');
+        let currentLikes = parseInt(countElement.innerText);
+        countElement.innerText = currentLikes + 1;
+        element.querySelector('.like-btn').style.filter = "drop-shadow(0 0 5px #ff007a)";
     }
 
     const text = '"Fantastic Render Yard - Markas Kreativitas"';
