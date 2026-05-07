@@ -12,15 +12,15 @@
             overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* --- STABILIZED CYBER CURSOR (LOGIKA LAMA) --- */
+        /* --- [UBAH] LOGIKA MOUSE CSS TETAP PANJANG --- */
         * { cursor: none !important; }
         #cursor-dot {
-            width: 8px; height: 8px; background: #d4af37; /* Gold Logo */
+            width: 8px; height: 8px; background: #d4af37; 
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 10000; transform: translate(-50%, -50%); left: -100px; top: -100px;
         }
         #cursor-outline {
-            width: 30px; height: 30px; border: 2px solid #4facfe; /* Blue Logo */
+            width: 30px; height: 30px; border: 2px solid #4facfe; 
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 9999; transform: translate(-50%, -50%); left: -100px; top: -100px;
             transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
@@ -28,7 +28,7 @@
         .cursor-hover-active {
             width: 50px !important; height: 50px !important;
             background: rgba(79, 172, 254, 0.15) !important;
-            border-color: #d4af37 !important; /* Gold Glow */
+            border-color: #d4af37 !important; 
         }
 
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
@@ -39,6 +39,7 @@
             border-bottom: 2px solid #2a4d69; position: relative; z-index: 10;
             backdrop-filter: blur(10px);
         }
+        /* --- [HAPUS] CSS redundant di bagian live-info untuk efisiensi --- */
         .live-info { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); text-align: left; }
         #clock { font-size: 1.2rem; color: #4facfe; font-weight: bold; margin: 0; }
         #status-text { font-size: 0.7rem; color: #d4af37; text-transform: uppercase; letter-spacing: 1px; }
@@ -52,7 +53,6 @@
         @keyframes shine { to { background-position: 200% center; } }
         #typing-text { color: #a0a0a0; font-style: italic; font-size: 0.9rem; min-height: 1.2em; margin-top: 5px; }
 
-        /* --- IMPROVED WHITESPACE (HOLLY CHICKEN) --- */
         .main-container {
             max-width: 900px; margin: 60px auto; padding: 50px; 
             background: rgba(255, 255, 255, 0.03); border-radius: 30px;
@@ -78,7 +78,6 @@
         .bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 10px; border-radius: 10px; margin-top: 8px; overflow: hidden; }
         .bar-fill { height: 100%; background: linear-gradient(90deg, #4facfe, #d4af37); width: 0; transition: width 2s ease; }
 
-        /* --- GALLERY & LIKE SYSTEM --- */
         .gallery {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 35px; max-width: 1200px; margin: 0 auto 80px; padding: 20px;
@@ -183,14 +182,40 @@
     <script>
     particlesJS("particles-js", {"particles": {"number": {"value": 70}, "color": {"value": ["#4facfe", "#d4af37"]}, "size": {"value": 2}, "move": {"enable": true, "speed": 1}}});
 
+    /* --- [TAMBAH] KEMBALI KE LOGIKA MOUSE PANJANG & DETAIL --- */
     const dot = document.getElementById("cursor-dot");
     const outline = document.getElementById("cursor-outline");
     let mouseX = -100, mouseY = -100, outlineX = -100, outlineY = -100;
 
-    window.addEventListener("mousemove", e => { mouseX = e.clientX; mouseY = e.clientY; dot.style.left = mouseX + "px"; dot.style.top = mouseY + "px"; });
-    function animateCursor() { outlineX += (mouseX - outlineX) * 0.15; outlineY += (mouseY - outlineY) * 0.15; outline.style.left = outlineX + "px"; outline.style.top = outlineY + "px"; requestAnimationFrame(animateCursor); }
+    function moveCursor(e) {
+        if (e.touches) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        } else {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+    }
+
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", moveCursor);
+    window.addEventListener("touchstart", moveCursor);
+    window.addEventListener("touchmove", moveCursor);
+
+    function animateCursor() { 
+        let distX = mouseX - outlineX;
+        let distY = mouseY - outlineY;
+        outlineX += distX * 0.15; 
+        outlineY += distY * 0.15; 
+        outline.style.left = outlineX + "px"; 
+        outline.style.top = outlineY + "px"; 
+        requestAnimationFrame(animateCursor); 
+    }
     animateCursor();
 
+    /* --- [UBAH] FUNGSI FILTER TETAP COMPACT --- */
     function filterGallery(category) {
         const items = document.querySelectorAll('.gallery-item');
         const buttons = document.querySelectorAll('.filter-btn');
@@ -207,8 +232,18 @@
         typeEffect();
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('id-ID'); }, 1000);
         setTimeout(() => { document.getElementById('skill1').style.width = '85%'; document.getElementById('skill2').style.width = '95%'; document.getElementById('skill3').style.width = '75%'; }, 500);
-        document.addEventListener("mouseover", e => { if (e.target.closest('button, a, img, .like-container')) outline.classList.add("cursor-hover-active"); });
-        document.addEventListener("mouseout", e => { if (e.target.closest('button, a, img, .like-container')) outline.classList.remove("cursor-hover-active"); });
+        
+        /* --- [TAMBAH] HOVER DETECTION MANUAL (DETAIL) --- */
+        document.addEventListener("mouseover", e => { 
+            if (e.target.closest('button, a, img, .like-container, .filter-btn')) {
+                outline.classList.add("cursor-hover-active");
+            } 
+        });
+        document.addEventListener("mouseout", e => { 
+            if (e.target.closest('button, a, img, .like-container, .filter-btn')) {
+                outline.classList.remove("cursor-hover-active");
+            } 
+        });
     };
 
     const music = document.getElementById('bg-music');
