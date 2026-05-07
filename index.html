@@ -169,20 +169,51 @@
         .gallery-item:hover { transform: translateY(-10px); border-color: #4facfe; }
         .gallery-item img { width: 100%; border-radius: 15px; cursor: pointer; }
 
-        /* --- STYLE LIKE FAKE --- */
+        /* --- STYLE LIKE FAKE UPDATED --- */
         .like-container {
             margin-top: 15px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             cursor: pointer;
             user-select: none;
-            padding: 5px;
+            padding: 8px 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
-        .like-btn { font-size: 1.2rem; transition: transform 0.2s ease; }
-        .like-container:active .like-btn { transform: scale(1.4); }
-        .like-count { font-weight: bold; color: #ff007a; font-family: 'Courier New', Courier, monospace; }
+
+        .like-btn { 
+            font-size: 1.2rem; 
+            color: #ffffff; /* Putih di awal */
+            transition: all 0.3s ease;
+            filter: grayscale(1);
+        }
+
+        .like-count { 
+            font-weight: bold; 
+            color: #ccc; 
+            font-family: 'Courier New', Courier, monospace; 
+        }
+
+        /* Saat tombol sudah di klik (Class Liked) */
+        .like-container.liked {
+            background: rgba(255, 0, 122, 0.1);
+            border-color: #ff007a;
+            pointer-events: none; /* Kunci biar ga bisa klik berkali-kali */
+        }
+
+        .like-container.liked .like-btn { 
+            filter: grayscale(0); 
+            transform: scale(1.2);
+            color: #ff007a;
+        }
+
+        .like-container.liked .like-count {
+            color: #ff007a;
+        }
 
         footer { margin: 50px 0; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
 
@@ -270,7 +301,7 @@
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Art Project</h3>
             <p style="font-size: 0.8rem; color: #888;">"My sword is my Shield, my duty is my curse."</p>
             <div class="like-container" onclick="addLike(this)">
-                <span class="like-btn">❤️</span>
+                <span class="like-btn">🤍</span>
                 <span class="like-count">1204</span>
             </div>
         </div>
@@ -279,7 +310,7 @@
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Cyber Art</h3>
             <p style="font-size: 0.8rem; color: #888;">"Digital Neon Concept"</p>
             <div class="like-container" onclick="addLike(this)">
-                <span class="like-btn">❤️</span>
+                <span class="like-btn">🤍</span>
                 <span class="like-count">856</span>
             </div>
         </div>
@@ -288,7 +319,7 @@
             <h3 style="margin: 15px 0 5px 0; color: #ebf5ff;">Future Yard</h3>
             <p style="font-size: 0.8rem; color: #888;">"Visual Exploration"</p>
             <div class="like-container" onclick="addLike(this)">
-                <span class="like-btn">❤️</span>
+                <span class="like-btn">🤍</span>
                 <span class="like-count">932</span>
             </div>
         </div>
@@ -348,12 +379,15 @@
         }
     }
 
-    // --- SCRIPT LIKE FAKE ---
+    // --- SCRIPT LIKE FAKE PRO (ONE CLICK ONLY) ---
     function addLike(element) {
+        if (element.classList.contains('liked')) return;
+
+        element.classList.add('liked');
         let countElement = element.querySelector('.like-count');
         let currentLikes = parseInt(countElement.innerText);
         countElement.innerText = currentLikes + 1;
-        element.querySelector('.like-btn').style.filter = "drop-shadow(0 0 5px #ff007a)";
+        element.querySelector('.like-btn').innerText = "❤️";
     }
 
     const text = '"Fantastic Render Yard - Markas Kreativitas"';
