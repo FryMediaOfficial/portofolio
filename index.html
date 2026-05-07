@@ -13,6 +13,7 @@
             padding: 0;
             text-align: center;
             overflow-x: hidden;
+            scroll-behavior: smooth; /* Tambahan agar scroll ke atas mulus */
         }
 
         #particles-js {
@@ -196,7 +197,7 @@
     </audio>
 
     <div class="floating-contact">
-        <button onclick="toggleMusic()" class="float-btn" style="background: #ff007a;" id="music-btn" title="Play Music">🎵</button>
+        <button onclick="handleFloatingClick()" class="float-btn" style="background: #ff007a;" id="music-btn" title="Music / Back to Top">🎵</button>
         <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="float-btn" title="Discord">🎮</a>
         <a href="https://www.instagram.com/frymediaofficial01?igsh=bmdyZGJwcmg4aThu" target="_blank" class="float-btn" style="background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);" title="Instagram">📸</a>
     </div>
@@ -213,7 +214,7 @@
         </div>
     </header>
 
-    <div class="main-container">
+    <div class="main-container" id="top-point">
         <h2 style="color: #4facfe; letter-spacing: 2px;">VIRTUAL BASE 🗿✨</h2>
         <p style="color: #ccc; line-height: 1.7;">
             Yo! Kamu sudah masuk ke dimensi visual <strong>Fry Media Official</strong>.<br> 
@@ -301,15 +302,37 @@
     }
     setInterval(updateClock, 1000);
 
-    // --- SCRIPT MUSIC ---
+    // --- SCRIPT SMART FLOATING BUTTON (MUSIC & TOP) ---
     const music = document.getElementById('bg-music');
-    function toggleMusic() {
-        if (music.paused) {
-            music.play();
-            document.getElementById('music-btn').innerText = "⏸️";
+    const musicBtn = document.getElementById('music-btn');
+    let isAtTop = true;
+
+    window.onscroll = function() {
+        // Jika scroll lebih dari 300px, ubah jadi tombol TOP
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            isAtTop = false;
+            musicBtn.innerText = "🔝";
+            musicBtn.style.background = "#4facfe"; // Berubah jadi biru biar beda
         } else {
-            music.pause();
-            document.getElementById('music-btn').innerText = "🎵";
+            isAtTop = true;
+            musicBtn.style.background = "#ff007a"; // Kembali jadi pink
+            musicBtn.innerText = music.paused ? "🎵" : "⏸️";
+        }
+    };
+
+    function handleFloatingClick() {
+        if (isAtTop) {
+            // Logika Musik
+            if (music.paused) {
+                music.play();
+                musicBtn.innerText = "⏸️";
+            } else {
+                music.pause();
+                musicBtn.innerText = "🎵";
+            }
+        } else {
+            // Logika Back to Top
+            window.scrollTo({top: 0, behavior: 'smooth'});
         }
     }
 
