@@ -22,20 +22,22 @@
         #cursor-dot {
             width: 8px; height: 8px; background: #ff007a;
             position: fixed; border-radius: 50%; pointer-events: none;
-            z-index: 9999; transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s;
+            z-index: 10000; transform: translate(-50%, -50%);
+            left: -100px; top: -100px; /* Sembunyiin dulu sebelum gerak */
         }
 
         #cursor-outline {
             width: 30px; height: 30px; border: 2px solid #4facfe;
             position: fixed; border-radius: 50%; pointer-events: none;
-            z-index: 9998; transform: translate(-50%, -50%);
-            transition: all 0.15s ease-out;
+            z-index: 9999; transform: translate(-50%, -50%);
+            left: -100px; top: -100px;
+            transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
         }
 
-        .cursor-hover {
-            width: 60px !important; height: 60px !important;
-            background: rgba(79, 172, 254, 0.2) !important;
+        /* Efek Hover */
+        .cursor-hover-active {
+            width: 50px !important; height: 50px !important;
+            background: rgba(79, 172, 254, 0.15) !important;
             border-color: #ff007a !important;
         }
 
@@ -192,7 +194,6 @@
         .gallery-item:hover { transform: translateY(-10px); border-color: #4facfe; }
         .gallery-item img { width: 100%; border-radius: 15px; cursor: pointer; }
 
-        /* --- STYLE LIKE FAKE UPDATED --- */
         .like-container {
             margin-top: 15px;
             display: inline-flex;
@@ -210,7 +211,7 @@
 
         .like-btn { 
             font-size: 1.2rem; 
-            color: #ffffff; /* Putih di awal */
+            color: #ffffff; 
             transition: all 0.3s ease;
             filter: grayscale(1);
         }
@@ -221,11 +222,10 @@
             font-family: 'Courier New', Courier, monospace; 
         }
 
-        /* Saat tombol sudah di klik (Class Liked) */
         .like-container.liked {
             background: rgba(255, 0, 122, 0.1);
             border-color: #ff007a;
-            pointer-events: none; /* Kunci biar ga bisa klik berkali-kali */
+            pointer-events: none;
         }
 
         .like-container.liked .like-btn { 
@@ -241,7 +241,7 @@
         footer { margin: 50px 0; color: #555; font-size: 0.8rem; position: relative; z-index: 10; }
 
         #myModal {
-            display:none; position:fixed; z-index:1000; padding-top:80px; 
+            display:none; position:fixed; z-index:10001; padding-top:80px; 
             left:0; top:0; width:100%; height:100%; 
             background-color: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
         }
@@ -369,17 +369,23 @@
         }
     });
 
-    // --- SCRIPT CUSTOM CURSOR ---
+    // --- SCRIPT CUSTOM CURSOR (AUTO-MOVE FIX) ---
     const dot = document.getElementById("cursor-dot");
     const outline = document.getElementById("cursor-outline");
 
-    window.addEventListener("mousemove", (e) => {
-        dot.style.left = e.clientX + "px";
-        dot.style.top = e.clientY + "px";
-        setTimeout(() => {
-            outline.style.left = e.clientX + "px";
-            outline.style.top = e.clientY + "px";
-        }, 50);
+    // Langsung dengerin gerakan mouse di seluruh dokumen
+    document.addEventListener("mousemove", function(e) {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        dot.style.left = posX + "px";
+        dot.style.top = posY + "px";
+
+        // Outline ngikutin dengan sedikit jeda (animasi smooth)
+        outline.animate({
+            left: posX + "px",
+            top: posY + "px"
+        }, { duration: 500, fill: "forwards" });
     });
 
     function updateClock() {
@@ -418,10 +424,8 @@
         }
     }
 
-    // --- SCRIPT LIKE FAKE PRO (ONE CLICK ONLY) ---
     function addLike(element) {
         if (element.classList.contains('liked')) return;
-
         element.classList.add('liked');
         let countElement = element.querySelector('.like-count');
         let currentLikes = parseInt(countElement.innerText);
@@ -448,11 +452,16 @@
             document.getElementById('skill3').style.width = '70%';
         }, 500);
 
-        // Pasang efek hover kursor ke elemen interaktif
-        const interactiveElements = document.querySelectorAll('button, a, .gallery-item img, .like-container');
-        interactiveElements.forEach(el => {
-            el.addEventListener("mouseenter", () => outline.classList.add("cursor-hover"));
-            el.addEventListener("mouseleave", () => outline.classList.remove("cursor-hover"));
+        // Efek Hover deteksi elemen interaktif
+        document.addEventListener("mouseover", function(e) {
+            if (e.target.closest('button, a, .gallery-item img, .like-container')) {
+                outline.classList.add("cursor-hover-active");
+            }
+        });
+        document.addEventListener("mouseout", function(e) {
+            if (e.target.closest('button, a, .gallery-item img, .like-container')) {
+                outline.classList.remove("cursor-hover-active");
+            }
         });
     };
 
