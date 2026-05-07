@@ -96,6 +96,29 @@
 
         .philo-item strong { color: #4facfe; display: block; margin-bottom: 5px; letter-spacing: 1px; }
 
+        /* SKILL BARS STYLE (NEW) */
+        .skill-section { margin: 30px 0; text-align: left; padding: 0 10px; }
+        .skill-container { margin-bottom: 15px; }
+        .skill-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.85rem; color: #4facfe; }
+        .bar-bg { width: 100%; background: rgba(255,255,255,0.1); height: 8px; border-radius: 10px; overflow: hidden; }
+        .bar-fill { 
+            height: 100%; background: linear-gradient(90deg, #4facfe, #00f2fe); 
+            border-radius: 10px; width: 0; transition: width 2s ease-in-out; 
+        }
+
+        /* FLOATING CONTACT (NEW) */
+        .floating-contact {
+            position: fixed; bottom: 20px; right: 20px; z-index: 100;
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .float-btn {
+            width: 50px; height: 50px; border-radius: 50%; background: #4facfe;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none; font-size: 22px;
+            box-shadow: 0 0 15px rgba(79, 172, 254, 0.5); transition: 0.3s;
+        }
+        .float-btn:hover { transform: scale(1.1); box-shadow: 0 0 25px #4facfe; }
+
         /* BUTTONS */
         .discord-btn {
             display: inline-block;
@@ -159,6 +182,11 @@
 
     <div id="particles-js"></div>
 
+    <div class="floating-contact">
+        <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="float-btn" title="Discord">🎮</a>
+        <a href="#" class="float-btn" style="background: #25d366;" title="WhatsApp">📱</a>
+    </div>
+
     <header>
         <div style="text-align: right;">
             <img src="IMG_20260406_161427.png" alt="Logo" style="width: 85px; height: auto; filter: drop-shadow(0 0 8px #4facfe);">
@@ -188,6 +216,21 @@
             <div class="philo-item">
                 <strong>YARD</strong>
                 <span style="font-size: 0.85rem; color: #aaa;">Markas berkumpulnya ide kreatif untuk diolah jadi karya.</span>
+            </div>
+        </div>
+
+        <div class="skill-section">
+            <div class="skill-container">
+                <div class="skill-label"><span>Prisma 3D & Render</span><span>85%</span></div>
+                <div class="bar-bg"><div class="bar-fill" id="skill1"></div></div>
+            </div>
+            <div class="skill-container">
+                <div class="skill-label"><span>Sketsa Pensil</span><span>95%</span></div>
+                <div class="bar-bg"><div class="bar-fill" id="skill2"></div></div>
+            </div>
+            <div class="skill-container">
+                <div class="skill-label"><span>Digital Animation</span><span>70%</span></div>
+                <div class="bar-bg"><div class="bar-fill" id="skill3"></div></div>
             </div>
         </div>
 
@@ -242,7 +285,16 @@
             setTimeout(typeEffect, 100);
         }
     }
-    window.onload = typeEffect;
+    
+    // Skill bar animation function (NEW)
+    window.onload = function() {
+        typeEffect();
+        setTimeout(() => {
+            document.getElementById('skill1').style.width = '85%';
+            document.getElementById('skill2').style.width = '95%';
+            document.getElementById('skill3').style.width = '70%';
+        }, 500);
+    };
 
     function openModal(element) {
         document.getElementById("myModal").style.display = "block";
