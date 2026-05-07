@@ -23,7 +23,7 @@
             width: 8px; height: 8px; background: #ff007a;
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 10000; transform: translate(-50%, -50%);
-            left: -100px; top: -100px; /* Sembunyiin dulu sebelum gerak */
+            left: -100px; top: -100px;
         }
 
         #cursor-outline {
@@ -34,7 +34,6 @@
             transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
         }
 
-        /* Efek Hover */
         .cursor-hover-active {
             width: 50px !important; height: 50px !important;
             background: rgba(79, 172, 254, 0.15) !important;
@@ -369,24 +368,39 @@
         }
     });
 
-    // --- SCRIPT CUSTOM CURSOR (AUTO-MOVE FIX) ---
+    // --- SCRIPT CUSTOM CURSOR (ULTRA RESPONSIVE) ---
     const dot = document.getElementById("cursor-dot");
     const outline = document.getElementById("cursor-outline");
 
-    // Langsung dengerin gerakan mouse di seluruh dokumen
-    document.addEventListener("mousemove", function(e) {
-        const posX = e.clientX;
-        const posY = e.clientY;
+    let mouseX = -100, mouseY = -100;
+    let outlineX = -100, outlineY = -100;
 
-        dot.style.left = posX + "px";
-        dot.style.top = posY + "px";
+    function moveCursor(e) {
+        if (e.touches) {
+            mouseX = e.touches[0].clientX;
+            mouseY = e.touches[0].clientY;
+        } else {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        }
+        dot.style.left = mouseX + "px";
+        dot.style.top = mouseY + "px";
+    }
 
-        // Outline ngikutin dengan sedikit jeda (animasi smooth)
-        outline.animate({
-            left: posX + "px",
-            top: posY + "px"
-        }, { duration: 500, fill: "forwards" });
-    });
+    window.addEventListener("mousemove", moveCursor, { passive: true });
+    window.addEventListener("touchstart", moveCursor, { passive: true });
+    window.addEventListener("touchmove", moveCursor, { passive: true });
+
+    function animate() {
+        let distX = mouseX - outlineX;
+        let distY = mouseY - outlineY;
+        outlineX += distX * 0.15;
+        outlineY += distY * 0.15;
+        outline.style.left = outlineX + "px";
+        outline.style.top = outlineY + "px";
+        requestAnimationFrame(animate);
+    }
+    animate();
 
     function updateClock() {
         const now = new Date();
@@ -452,7 +466,6 @@
             document.getElementById('skill3').style.width = '70%';
         }, 500);
 
-        // Efek Hover deteksi elemen interaktif
         document.addEventListener("mouseover", function(e) {
             if (e.target.closest('button, a, .gallery-item img, .like-container')) {
                 outline.classList.add("cursor-hover-active");
