@@ -13,14 +13,15 @@
             transition: background 0.5s;
         }
 
-        /* --- [FITUR] THEME NEON MODE --- */
+        /* --- THEME NEON MODE --- */
         body.neon-mode { background-color: #0d0005; }
         body.neon-mode .glowing-title { background: linear-gradient(90deg, #ff0055, #d4af37, #ff0055); -webkit-background-clip: text; }
         body.neon-mode #cursor-outline { border-color: #ff0055; }
         body.neon-mode .filter-btn.active { background: #ff0055; border-color: #ff0055; }
         body.neon-mode .creed-block { color: #ff0055; border-top-color: rgba(255, 0, 85, 0.2); }
+        body.neon-mode .philo-item strong { color: #ff0055; }
 
-        /* --- LOGIKA MOUSE PANJANG (TETAP TERJAGA) --- */
+        /* --- LOGIKA MOUSE PANJANG --- */
         * { cursor: none !important; }
         #cursor-dot {
             width: 8px; height: 8px; background: #d4af37; 
@@ -40,7 +41,6 @@
             border-color: #d4af37 !important; 
         }
 
-        /* --- [FITUR] NEON LOGO PULSING --- */
         .logo-pulse {
             width: 90px; filter: drop-shadow(0 0 10px #4facfe);
             animation: logo-glow 2s ease-in-out infinite alternate;
@@ -51,7 +51,6 @@
             to { filter: drop-shadow(0 0 20px #d4af37); transform: scale(1.05); }
         }
 
-        /* --- [FITUR] GLITCH ANIMATION --- */
         .glitch { animation: glitch 0.5s linear infinite; position: relative; }
         @keyframes glitch {
             2%, 64% { transform: translate(2px, 0) skew(0deg); }
@@ -87,10 +86,20 @@
             backdrop-filter: blur(5px); box-shadow: 0 0 20px rgba(79, 172, 254, 0.1);
         }
 
+        .philosophy-grid { display: flex; justify-content: space-around; gap: 20px; margin: 35px 0; flex-wrap: wrap; }
+        .philo-item { 
+            flex: 1; min-width: 220px; padding: 20px; background: rgba(79, 172, 254, 0.05);
+            border-radius: 15px; border: 1px solid rgba(79, 172, 254, 0.1); transition: 0.3s;
+        }
+        .philo-item strong { color: #4facfe; display: block; margin-bottom: 8px; }
+
+        .skill-section { margin: 40px 0; text-align: left; }
+        .bar-bg { width: 100%; background: rgba(255,255,255,0.05); height: 10px; border-radius: 10px; margin-top: 8px; overflow: hidden; }
+        .bar-fill { height: 100%; background: linear-gradient(90deg, #4facfe, #d4af37); width: 0; transition: width 2s ease; }
+
         .creed-block {
             margin-top: 30px; padding: 15px; border-top: 1px solid rgba(79, 172, 254, 0.2);
             font-size: 0.8rem; color: #4facfe; letter-spacing: 2px; text-transform: uppercase;
-            transition: 0.3s;
         }
 
         .filter-buttons { margin: 40px 0 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
@@ -103,15 +112,14 @@
         .gallery {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 35px; max-width: 1200px; margin: 0 auto 80px; padding: 20px;
-            perspective: 1000px;
         }
         .gallery-item {
             background: rgba(24, 24, 24, 0.7); padding: 20px; border-radius: 25px;
-            border: 1px solid #2a4d69; transition: 0.1s; backdrop-filter: blur(5px);
-            transform-style: preserve-3d;
+            border: 1px solid #2a4d69; transition: 0.4s; backdrop-filter: blur(5px);
         }
         .gallery-item.hide { display: none; }
-        .gallery-item img { width: 100%; border-radius: 18px; margin-bottom: 15px; pointer-events: none; }
+        .gallery-item:hover { transform: translateY(-10px); border-color: #d4af37; }
+        .gallery-item img { width: 100%; border-radius: 18px; margin-bottom: 15px; }
 
         .like-container {
             margin-top: 15px; display: inline-flex; align-items: center; gap: 10px;
@@ -132,7 +140,6 @@
             left:0; top:0; width:100%; height:100%; background: rgba(0,0,0,0.95); backdrop-filter: blur(10px);
         }
 
-        /* --- SECRET MODAL --- */
         #secretModal {
             display:none; position:fixed; z-index:10002; left:0; top:0; width:100%; height:100%;
             background: rgba(255, 0, 85, 0.2); backdrop-filter: blur(20px);
@@ -152,6 +159,7 @@
         <button onclick="toggleNeonMode()" class="float-btn" style="background: #ff0055;" id="theme-btn">🎨</button>
         <button onclick="handleFloatingClick()" class="float-btn" style="background: #d4af37;" id="music-btn">🎵</button>
         <a href="https://discord.gg/TgFsjzuAgb" target="_blank" class="float-btn">🎮</a>
+        <a href="https://www.instagram.com/frymediaofficial01" target="_blank" class="float-btn" style="background: linear-gradient(45deg, #f09433, #bc1888);">📸</a>
     </div>
 
     <header>
@@ -172,6 +180,22 @@
             Yo! Kamu sudah masuk ke dimensi visual <strong>Fry Media Official</strong>.<br> 
             Membangun Interaksi Digital yang Luwes, Memikat, dan Inovatif. 🚀
         </p>
+        
+        <div class="philosophy-grid">
+            <div class="philo-item"><strong>FANTASTIC</strong><span>Kualitas memukau bikin terpana.</span></div>
+            <div class="philo-item"><strong>RENDER</strong><span>Animasi 3D yang tampak hidup.</span></div>
+            <div class="philo-item"><strong>YARD</strong><span>Markas ide kreatif diolah.</span></div>
+        </div>
+
+        <div class="skill-section">
+            <div style="display:flex; justify-content:space-between"><span>Prisma 3D & Animation</span><span>85%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="skill1"></div></div>
+            <div style="display:flex; justify-content:space-between; margin-top:15px"><span>Digital Products</span><span>75%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="skill3"></div></div>
+            <div style="display:flex; justify-content:space-between; margin-top:15px"><span>Sketsa Pensil</span><span>95%</span></div>
+            <div class="bar-bg"><div class="bar-fill" id="skill2"></div></div>
+        </div>
+
         <div class="creed-block">"In Void, We Render. In Line, We Form."</div>
     </div>
 
@@ -185,17 +209,17 @@
     </div>
     
     <div class="gallery">
-        <div class="gallery-item art" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+        <div class="gallery-item art">
             <img src="IMG_20260505_211132.png" onclick="openModal(this)">
             <h3>Knight Project</h3>
             <div class="like-container" onclick="addLike(this)"><span>🤍</span><span class="like-count">1204</span></div>
         </div>
-        <div class="gallery-item product" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+        <div class="gallery-item product">
             <img src="1000233970.jpg" onclick="openModal(this)">
             <h3>Neon Concept</h3>
             <div class="like-container" onclick="addLike(this)"><span>🤍</span><span class="like-count">856</span></div>
         </div>
-        <div class="gallery-item animation" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+        <div class="gallery-item animation">
             <img src="1000233972.jpg" onclick="openModal(this)">
             <h3>Future Yard</h3>
             <div class="like-container" onclick="addLike(this)"><span>🤍</span><span class="like-count">932</span></div>
@@ -210,7 +234,6 @@
         <div style="background:rgba(0,0,0,0.9); padding:40px; border-radius:20px; border:2px solid #ff0055;">
             <h2 style="color:#ff0055;">ACCESS GRANTED 🗿㊙️</h2>
             <p>Welcome to the Panglima's Secret Base.</p>
-            <p style="font-size: 0.8rem; color:#d4af37;">"Halal Mode Activated."</p>
         </div>
     </div>
 
@@ -241,23 +264,12 @@
     }
     animateCursor();
 
-    /* --- [FITUR] NEON THEME SWITCHER --- */
     function toggleNeonMode() {
         document.body.classList.toggle('neon-mode');
         const btn = document.getElementById('theme-btn');
         btn.style.background = document.body.classList.contains('neon-mode') ? '#4facfe' : '#ff0055';
     }
 
-    /* --- [FITUR] 3D TILT --- */
-    function tilt(e, el) {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left, y = e.clientY - rect.top;
-        const rotateX = (y - rect.height/2) / 10, rotateY = (rect.width/2 - x) / 10;
-        el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    }
-    function resetTilt(el) { el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`; }
-
-    /* --- [FITUR] SECRET EASTER EGG --- */
     let secretTimer;
     function startSecret() { secretTimer = setTimeout(() => { document.getElementById('secretModal').style.display='flex'; }, 3000); }
     function stopSecret() { clearTimeout(secretTimer); }
@@ -276,6 +288,12 @@
     window.onload = () => {
         typeEffect();
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('id-ID'); }, 1000);
+        setTimeout(() => { 
+            document.getElementById('skill1').style.width = '85%'; 
+            document.getElementById('skill2').style.width = '95%'; 
+            document.getElementById('skill3').style.width = '75%'; 
+        }, 500);
+
         document.addEventListener("mouseover", e => { 
             const target = e.target.closest('button, a, img, .like-container, .filter-btn');
             if (target) {
