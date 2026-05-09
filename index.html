@@ -12,7 +12,7 @@
             overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* --- [UBAH] LOGIKA MOUSE CSS TETAP PANJANG --- */
+        /* --- LOGIKA MOUSE PANJANG (TETAP TERJAGA) --- */
         * { cursor: none !important; }
         #cursor-dot {
             width: 8px; height: 8px; background: #d4af37; 
@@ -24,11 +24,30 @@
             position: fixed; border-radius: 50%; pointer-events: none;
             z-index: 9999; transform: translate(-50%, -50%); left: -100px; top: -100px;
             transition: width 0.2s, height 0.2s, border-color 0.2s, background 0.2s;
+            display: flex; align-items: center; justify-content: center; font-size: 10px; color: #d4af37;
         }
         .cursor-hover-active {
             width: 50px !important; height: 50px !important;
             background: rgba(79, 172, 254, 0.15) !important;
             border-color: #d4af37 !important; 
+        }
+
+        /* --- [FITUR 1] NEON LOGO PULSING --- */
+        .logo-pulse {
+            width: 90px; filter: drop-shadow(0 0 10px #4facfe);
+            animation: logo-glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes logo-glow {
+            from { filter: drop-shadow(0 0 5px #4facfe); transform: scale(1); }
+            to { filter: drop-shadow(0 0 20px #d4af37); transform: scale(1.05); }
+        }
+
+        /* --- [FITUR 2] GLITCH ANIMATION --- */
+        .glitch { animation: glitch 0.5s linear infinite; position: relative; }
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
         }
 
         #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
@@ -39,7 +58,6 @@
             border-bottom: 2px solid #2a4d69; position: relative; z-index: 10;
             backdrop-filter: blur(10px);
         }
-        /* --- [HAPUS] CSS redundant di bagian live-info untuk efisiensi --- */
         .live-info { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); text-align: left; }
         #clock { font-size: 1.2rem; color: #4facfe; font-weight: bold; margin: 0; }
         #status-text { font-size: 0.7rem; color: #d4af37; text-transform: uppercase; letter-spacing: 1px; }
@@ -58,6 +76,12 @@
             background: rgba(255, 255, 255, 0.03); border-radius: 30px;
             border: 1px dashed #4facfe; position: relative; z-index: 10;
             backdrop-filter: blur(5px); box-shadow: 0 0 20px rgba(79, 172, 254, 0.1);
+        }
+
+        /* --- [FITUR 4] STUDIO CREED BLOCK --- */
+        .creed-block {
+            margin-top: 30px; padding: 15px; border-top: 1px solid rgba(79, 172, 254, 0.2);
+            font-size: 0.8rem; color: #4facfe; letter-spacing: 2px; text-transform: uppercase;
         }
 
         .filter-buttons { margin: 40px 0 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
@@ -130,7 +154,7 @@
             <p id="status-text">● RENDERING IDEAS</p>
         </div>
         <div style="text-align: right;">
-            <img src="IMG_20260406_161427.png" alt="Logo" style="width: 90px; filter: drop-shadow(0 0 10px #4facfe);">
+            <img src="IMG_20260406_161427.png" alt="Logo" class="logo-pulse">
             <h1 class="glowing-title">FRY MEDIA OFFICIAL</h1>
             <p id="typing-text"></p> 
         </div>
@@ -157,6 +181,10 @@
             <div style="display:flex; justify-content:space-between; margin-top:15px"><span>Sketsa Pensil</span><span>95%</span></div>
             <div class="bar-bg"><div class="bar-fill" id="skill2"></div></div>
         </div>
+
+        <div class="creed-block">
+            "In Void, We Render. In Line, We Form."
+        </div>
     </div>
 
     <h2 style="font-size: 2rem; letter-spacing: 3px;">PORTFOLIO KARYA 🗿🎨</h2>
@@ -182,7 +210,7 @@
     <script>
     particlesJS("particles-js", {"particles": {"number": {"value": 70}, "color": {"value": ["#4facfe", "#d4af37"]}, "size": {"value": 2}, "move": {"enable": true, "speed": 1}}});
 
-    /* --- [TAMBAH] KEMBALI KE LOGIKA MOUSE PANJANG & DETAIL --- */
+    /* --- LOGIKA MOUSE TETAP PANJANG --- */
     const dot = document.getElementById("cursor-dot");
     const outline = document.getElementById("cursor-outline");
     let mouseX = -100, mouseY = -100, outlineX = -100, outlineY = -100;
@@ -215,7 +243,29 @@
     }
     animateCursor();
 
-    /* --- [UBAH] FUNGSI FILTER TETAP COMPACT --- */
+    /* --- [FITUR 3] SOUND EFFECT & CURSOR PREVIEW --- */
+    const hoverSound = new Audio('https://www.soundjay.com/buttons/sounds/button-50.mp3'); // Sound ringan
+    hoverSound.volume = 0.2;
+
+    document.addEventListener("mouseover", e => { 
+        const target = e.target.closest('button, a, img, .like-container, .filter-btn');
+        if (target) {
+            outline.classList.add("cursor-hover-active");
+            hoverSound.play(); // Mainkan sound
+            
+            // Tambah preview ikon di kursor
+            if(target.classList.contains('filter-btn')) outline.innerText = "🔍";
+            if(target.tagName === 'IMG') outline.innerText = "👁️";
+            if(target.classList.contains('like-container')) outline.innerText = "❤️";
+        } 
+    });
+    document.addEventListener("mouseout", e => { 
+        if (e.target.closest('button, a, img, .like-container, .filter-btn')) {
+            outline.classList.remove("cursor-hover-active");
+            outline.innerText = ""; // Hapus ikon
+        } 
+    });
+
     function filterGallery(category) {
         const items = document.querySelectorAll('.gallery-item');
         const buttons = document.querySelectorAll('.filter-btn');
@@ -224,26 +274,29 @@
         items.forEach(item => { (category === 'all' || item.classList.contains(category)) ? item.classList.remove('hide') : item.classList.add('hide'); });
     }
 
+    /* --- [FITUR 2] GLITCH TEXT LOGIC --- */
     const tagline = '"Membangun Interaksi Digital yang Memikat & Inovatif"';
     let i = 0;
-    function typeEffect() { if (i < tagline.length) { document.getElementById("typing-text").innerHTML += tagline.charAt(i); i++; setTimeout(typeEffect, 80); } }
+    const typingElement = document.getElementById("typing-text");
+
+    function typeEffect() { 
+        if (i < tagline.length) { 
+            typingElement.innerHTML += tagline.charAt(i); 
+            i++; 
+            setTimeout(typeEffect, 80); 
+        } else {
+            // Setelah selesai ketik, aktifkan glitch random
+            setInterval(() => {
+                typingElement.classList.add('glitch');
+                setTimeout(() => typingElement.classList.remove('glitch'), 500);
+            }, 4000);
+        }
+    }
 
     window.onload = () => {
         typeEffect();
         setInterval(() => { document.getElementById('clock').innerText = new Date().toLocaleTimeString('id-ID'); }, 1000);
         setTimeout(() => { document.getElementById('skill1').style.width = '85%'; document.getElementById('skill2').style.width = '95%'; document.getElementById('skill3').style.width = '75%'; }, 500);
-        
-        /* --- [TAMBAH] HOVER DETECTION MANUAL (DETAIL) --- */
-        document.addEventListener("mouseover", e => { 
-            if (e.target.closest('button, a, img, .like-container, .filter-btn')) {
-                outline.classList.add("cursor-hover-active");
-            } 
-        });
-        document.addEventListener("mouseout", e => { 
-            if (e.target.closest('button, a, img, .like-container, .filter-btn')) {
-                outline.classList.remove("cursor-hover-active");
-            } 
-        });
     };
 
     const music = document.getElementById('bg-music');
